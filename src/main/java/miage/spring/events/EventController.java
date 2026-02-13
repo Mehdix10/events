@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/events")
 public class EventController {
-    
+
     private final EventRepository eventRepository;
 
-    public EventController(EventRepository eventRepository)
-    {
+    public EventController(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
     @GetMapping
-    public String listEvents(Model model)
-    {
+    public String listEvents(Model model) {
         final var t = eventRepository.findAll();
         System.out.println(t);
         model.addAttribute("events", t);
@@ -29,27 +27,29 @@ public class EventController {
     }
 
     @GetMapping("/new")
-    public String newEventForm(Model model)
-    {
+    public String newEventForm(Model model) {
         model.addAttribute("event", new Event());
         return "events/new";
     }
+
     @PostMapping("/new")
-    public String saveEvent(@ModelAttribute Event event)
-    {
-        this.eventRepository.save(event);
+    public String saveEvent(@ModelAttribute Event event) {
+        if (event.getId() != null)
+            this.eventRepository.update(event);
+        else
+            this.eventRepository.save(event);
         return "redirect:/events";
     }
+
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable long id, Model model)
-    {
-        final Event e= this.eventRepository.findById(id);
+    public String editForm(@PathVariable long id, Model model) {
+        final Event e = this.eventRepository.findById(id);
         model.addAttribute("event", e);
         return "events/new";
     }
+
     @PostMapping("/delete/{id}")
-    public String deleteEvent(@PathVariable long id)
-    {
+    public String deleteEvent(@PathVariable long id) {
         this.eventRepository.delete(id);
         return "redirect:/events";
     }

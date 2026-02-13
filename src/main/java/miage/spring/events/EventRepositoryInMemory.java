@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+// @Repository
 public class EventRepositoryInMemory implements EventRepository {
 
     private final Map<Long,Event> events = new TreeMap<>();
@@ -33,6 +33,12 @@ public class EventRepositoryInMemory implements EventRepository {
     @Override
     public List<Event> findAll() {
         return new ArrayList<Event>(this.events.values());
+    }
+
+    @Override
+    public void update(Event event) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
 }
