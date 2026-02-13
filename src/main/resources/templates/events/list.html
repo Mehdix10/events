@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+
+<h2>Todo List</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.name}"></td>
+        <td><a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a></td>
+        <td><form method="post" th:action="@{/events/delete/{id}(id=${event.id})}"><button type="submit">Delete</button></form></td>
+    </tr>
+</table>
+
+<br/>
+
+<a th:href="@{/events/new}">Add New Todo</a>
+
+</body>
+</html>

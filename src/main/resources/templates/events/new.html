@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+</head>
+
+<body>
+
+    <h2>Create Event</h2>
+
+    <form th:action="@{/events/new}" method="post">
+        <input type="text" name="name" id="name" th:value="${event.name}">
+        <input type="text" name="id" id="id" th:value="${event.id}" hidden>
+        <input type="Submit" value="Submit">
+    </form>
+
+    <br />
+    <a th:href="@{/events}">Back to Events List</a>
+</body>
+
+</html>
